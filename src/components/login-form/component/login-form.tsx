@@ -7,13 +7,11 @@ import { useLoginFormStyles } from '../styles/login-form-styles';
 import { Props } from '../types/login-form-types';
 import { useAppDispatch } from '../../../store/hooks/useAppDispatch';
 import { login } from '../../../store/features/login-form/routines';
+import { FormField } from '../../form-field/component';
 
 export const LoginForm: FC<Props> = (props) => {
   const classes = useLoginFormStyles();
-  const {
-    data,
-    footerData,
-  } = props;
+  const { data, footerData } = props;
 
   const dispatch = useAppDispatch();
   const formik = useFormik({
@@ -23,10 +21,12 @@ export const LoginForm: FC<Props> = (props) => {
     },
     validationSchema: loginSchema,
     onSubmit: (values, actions) => {
-      dispatch(login({
-        email: 'eve.holt@reqres.in',
-        password: 'cityslicka',
-      }));
+      dispatch(
+        login({
+          email: 'eve.holt@reqres.in',
+          password: 'cityslicka',
+        })
+      );
       actions.resetForm();
     },
   });
@@ -42,6 +42,16 @@ export const LoginForm: FC<Props> = (props) => {
               noValidate
               className={classes.formWrapper}
             >
+              {data.map((field, indx) => (
+                <FormField
+                  key={indx}
+                  id={field.type}
+                  type={field.type}
+                  label={field.label}
+                  placeholder={field.placeholder}
+                  formik={formik}
+                />
+              ))}
             </form>
           </Grid>
         </Paper>
