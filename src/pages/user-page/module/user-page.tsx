@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
   Avatar,
@@ -15,9 +15,12 @@ import { useAppDispatch } from '../../../store/hooks/useAppDispatch';
 import { logout } from '../../../store/features/user-page/routines';
 import { useUserPageStyles } from './styles/user-page-styles';
 import { withRouteGuard } from '../../../hoks/with-route-guard/hok';
+import { useAppSelector } from '../../../store/hooks/useAppSelector';
+import { getUser } from '../../../store/features/user-page/routines/user-page-routines';
 
 const UserPage: FC = () => {
   const classes = useUserPageStyles();
+  const user = useAppSelector((state) => state.user.data);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -27,6 +30,10 @@ const UserPage: FC = () => {
     navigate('/login');
   };
 
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
+
   return (
     <Container>
       <NavLink to="/home">Home</NavLink>
@@ -35,16 +42,16 @@ const UserPage: FC = () => {
           <Card>
             <CardContent>
               <Typography color="primary" gutterBottom>
-                user name
+                {`${user.first_name} ${user.last_name}`}
               </Typography>
 
               <Avatar
-                src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
+                src={user.avatar}
                 alt="User avatar image"
                 className={classes.userAvatar}
               />
 
-              <Typography color="primary">email</Typography>
+              <Typography color="primary">{user.email}</Typography>
             </CardContent>
 
             <CardActions className={classes.cardActions}>
