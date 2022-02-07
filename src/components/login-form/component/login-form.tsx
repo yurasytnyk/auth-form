@@ -1,9 +1,11 @@
 import { FC } from 'react';
 import { useFormik } from 'formik';
 import { Container, Grid, Paper } from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { loginSchema } from '../schemas/loginSchema';
 import { useLoginFormStyles } from '../styles/login-form-styles';
+import { FormHeader } from '../../form-header/component';
 import { Props } from '../types/login-form-types';
 import { useAppDispatch } from '../../../store/hooks/useAppDispatch';
 import { login } from '../../../store/features/login-form/routines';
@@ -42,6 +44,11 @@ export const LoginForm: FC<Props> = (props) => {
               noValidate
               className={classes.formWrapper}
             >
+              <FormHeader
+                className={classes.formAvatar}
+                title="Sign In"
+                icon={<LockOutlinedIcon />}
+              />
             </form>
           </Grid>
         </Paper>
