@@ -1,7 +1,6 @@
 import { ComponentType } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { useAppSelector } from '../../../store/hooks/useAppSelector';
 import { WithRouteGuardProps } from '../types/with-route-guard-types';
 
 export function withRouteGuard<T extends WithRouteGuardProps>(Component: ComponentType<T>) {
