@@ -32,6 +32,10 @@ class AxiosClient {
     return () => Promise.resolve('Logout');
   }
 
+  public registration(url: string, method: Method, body: IRequestBody = {}) {
+    return async () => await this.request(url, method, body);
+  }
+
   public getUser(url: string, method: Method) {
     return async () => await this.request(url, method);
   }

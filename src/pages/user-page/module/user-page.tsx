@@ -1,9 +1,5 @@
-import { 
-  FC, 
-  useContext, 
-  useEffect 
-} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FC, useContext, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   Avatar,
   Button,
@@ -17,12 +13,15 @@ import {
 
 import { useUserPageStyles } from './styles/user-page-styles';
 import { useAppSelector } from '../../../store/hooks/useAppSelector';
+import { getUser } from '../../../store/features/user-page/routines/user-page-routines';
 import { AuthContext } from '../../../context/auth-context';
+import { useAppDispatch } from '../../../store/hooks/useAppDispatch';
 
 export const UserPage: FC = () => {
   const classes = useUserPageStyles();
-  const { signOut, fetchUser } = useContext(AuthContext);
   const user = useAppSelector((state) => state.user.data);
+  const { signOut } = useContext(AuthContext);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -32,7 +31,7 @@ export const UserPage: FC = () => {
   };
 
   useEffect(() => {
-    fetchUser();
+    dispatch(getUser());
   }, []);
 
   return (
