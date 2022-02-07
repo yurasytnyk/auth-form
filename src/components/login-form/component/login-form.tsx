@@ -1,7 +1,12 @@
 import { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { Container, Grid, Paper } from '@material-ui/core';
+
+import { loginSchema } from '../schemas/loginSchema';
+import { useLoginFormStyles } from '../styles/login-form-styles';
+import { Props } from '../types/login-form-types';
+import { useAppDispatch } from '../../../store/hooks/useAppDispatch';
+import { login } from '../../../store/features/login-form/routines';
 
 export const LoginForm: FC<Props> = (props) => {
   const classes = useLoginFormStyles();
@@ -10,6 +15,7 @@ export const LoginForm: FC<Props> = (props) => {
     footerData,
   } = props;
 
+  const dispatch = useAppDispatch();
   const formik = useFormik({
     initialValues: {
       email: 'eve.holt@reqres.in',
@@ -17,6 +23,10 @@ export const LoginForm: FC<Props> = (props) => {
     },
     validationSchema: loginSchema,
     onSubmit: (values, actions) => {
+      dispatch(login({
+        email: 'eve.holt@reqres.in',
+        password: 'cityslicka',
+      }));
       actions.resetForm();
     },
   });
