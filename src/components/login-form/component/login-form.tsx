@@ -10,6 +10,7 @@ import { Props } from '../types/login-form-types';
 import { useAppDispatch } from '../../../store/hooks/useAppDispatch';
 import { login } from '../../../store/features/login-form/routines';
 import { FormField } from '../../form-field/component';
+import { FormFooter } from '../../form-footer/component';
 
 export const LoginForm: FC<Props> = (props) => {
   const classes = useLoginFormStyles();
@@ -60,6 +61,12 @@ export const LoginForm: FC<Props> = (props) => {
                   formik={formik}
                 />
               ))}
+
+              <FormFooter
+                text={footerData.text}
+                linkText={footerData.linkText}
+                url={footerData.url}
+              />
             </form>
           </Grid>
         </Paper>
