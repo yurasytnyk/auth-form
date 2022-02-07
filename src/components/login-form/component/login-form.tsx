@@ -7,6 +7,7 @@ import { useLoginFormStyles } from '../styles/login-form-styles';
 import { Props } from '../types/login-form-types';
 import { useAppDispatch } from '../../../store/hooks/useAppDispatch';
 import { login } from '../../../store/features/login-form/routines';
+import { FormFooter } from '../../form-footer/component';
 
 export const LoginForm: FC<Props> = (props) => {
   const classes = useLoginFormStyles();
@@ -42,6 +43,11 @@ export const LoginForm: FC<Props> = (props) => {
               noValidate
               className={classes.formWrapper}
             >
+              <FormFooter
+                text={footerData.text}
+                linkText={footerData.linkText}
+                url={footerData.url}
+              />
             </form>
           </Grid>
         </Paper>
