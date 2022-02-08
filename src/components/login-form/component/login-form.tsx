@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { useFormik } from 'formik';
 import { Container, Grid, Paper } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -7,29 +7,26 @@ import { loginSchema } from '../schemas/loginSchema';
 import { useLoginFormStyles } from '../styles/login-form-styles';
 import { FormHeader } from '../../form-header/component';
 import { Props } from '../types/login-form-types';
-import { useAppDispatch } from '../../../store/hooks/useAppDispatch';
-import { login } from '../../../store/features/login-form/routines';
 import { FormField } from '../../form-field/component';
 import { FormFooter } from '../../form-footer/component';
+import { AuthContext } from '../../../context/auth-context';
 
 export const LoginForm: FC<Props> = (props) => {
   const classes = useLoginFormStyles();
-  const { data, footerData } = props;
+  const { 
+    data, 
+    footerData,
+  } = props;
 
-  const dispatch = useAppDispatch();
+  const { signIn } = useContext(AuthContext);
   const formik = useFormik({
     initialValues: {
-      email: 'eve.holt@reqres.in',
-      password: 'cityslicka',
+      email: '',
+      password: '',
     },
     validationSchema: loginSchema,
     onSubmit: (values, actions) => {
-      dispatch(
-        login({
-          email: 'eve.holt@reqres.in',
-          password: 'cityslicka',
-        })
-      );
+      signIn();
       actions.resetForm();
     },
   });

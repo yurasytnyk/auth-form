@@ -1,5 +1,4 @@
 export interface State {
-  token: string;
   isAuth: boolean;
 }
 

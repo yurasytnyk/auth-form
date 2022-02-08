@@ -6,7 +6,11 @@ import { ILoginFormFooterData } from '../../login-form/types/login-form-types';
 import { SubmitButton } from '../../submit-button/component';
 
 export const FormFooter: FC<ILoginFormFooterData> = (props) => {
-  const { text, linkText, url } = props;
+  const { 
+    text, 
+    linkText, 
+    url 
+  } = props;
 
   return (
     <footer>

@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useContext, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
   Avatar,
@@ -11,27 +11,25 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import { useAppDispatch } from '../../../store/hooks/useAppDispatch';
-import { logout } from '../../../store/features/user-page/routines';
 import { useUserPageStyles } from './styles/user-page-styles';
 import { withRouteGuard } from '../../../hoks/with-route-guard/hok';
 import { useAppSelector } from '../../../store/hooks/useAppSelector';
-import { getUser } from '../../../store/features/user-page/routines/user-page-routines';
+import { AuthContext } from '../../../context/auth-context';
 
 const UserPage: FC = () => {
   const classes = useUserPageStyles();
+  const { signOut, fetchUser } = useContext(AuthContext);
   const user = useAppSelector((state) => state.user.data);
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleClick = () => {
-    dispatch(logout());
+    signOut();
     localStorage.removeItem('token');
     navigate('/login');
   };
 
   useEffect(() => {
-    dispatch(getUser());
+    fetchUser();
   }, []);
 
   return (

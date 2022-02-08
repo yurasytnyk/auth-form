@@ -16,7 +16,7 @@ function* loginWorker(action: PayloadAction<IRequestBody>) {
 
     if (response.status === 200) {
       yield localStorage.setItem('token', TOKEN);
-      yield put(success(TOKEN));
+      yield put(success());
     } else {
       throw new Error(
         `Response ended with status code: ${response.status}. Reason: ${response.statusText}`
