@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC, useContext, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Container, Grid, Paper } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -10,26 +10,32 @@ import { Props } from '../types/login-form-types';
 import { FormField } from '../../form-field/component';
 import { FormFooter } from '../../form-footer/component';
 import { AuthContext } from '../../../context/auth-context';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginForm: FC<Props> = (props) => {
   const classes = useLoginFormStyles();
-  const { 
-    data, 
-    footerData,
-  } = props;
+  const { data, footerData } = props;
+  const { isAuth, signIn } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const { signIn } = useContext(AuthContext);
+  const handleFormSubmit = () => signIn();
+
+  const initialValues = {
+    email: '',
+    password: '',
+  };
+
   const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
+    initialValues,
     validationSchema: loginSchema,
-    onSubmit: (values, actions) => {
-      signIn();
-      actions.resetForm();
-    },
+    onSubmit: handleFormSubmit,
   });
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/');
+    }
+  }, [isAuth]);
 
   return (
     <Container>

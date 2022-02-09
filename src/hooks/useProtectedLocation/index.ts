@@ -1,1 +1,0 @@
-export { useProtectedLocation } from './useProtectedLocation';

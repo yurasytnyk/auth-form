@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { useFormik } from 'formik';
+import { FC, useContext } from 'react';
+import { FormikHelpers, FormikValues, useFormik } from 'formik';
 import { Container, Grid, Paper } from '@material-ui/core';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 
@@ -9,24 +9,30 @@ import { FormHeader } from '../../form-header/component';
 import { Props } from '../types/registration-form-types';
 import { registrationSchema } from '../schemas/registration-form-schema';
 import { useRegistrationFormStyles } from '../styles/registration-form-styles';
+import { AuthContext } from '../../../context/auth-context';
 
 export const RegistrationForm: FC<Props> = (props) => {
   const classes = useRegistrationFormStyles();
-  const {
-    data,
-    footerData,
-  } = props;
+  const { data, footerData } = props;
+  const { signUp } = useContext(AuthContext);
+
+  const initialValues = {
+    email: '',
+    password: '',
+  };
+
+  const handleFormSubmit = (
+    values: FormikValues, 
+    actions: FormikHelpers<typeof initialValues>
+  ) => {
+    signUp();
+    actions.resetForm();
+  };
 
   const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
+    initialValues,
     validationSchema: registrationSchema,
-    onSubmit: (values, actions) => {
-      console.log(values);
-      actions.resetForm();
-    },
+    onSubmit: handleFormSubmit,
   });
 
   return (

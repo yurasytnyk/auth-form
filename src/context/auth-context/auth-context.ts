@@ -4,6 +4,7 @@ interface AuthContextType {
   isAuth: boolean;
   signIn: () => void;
   signOut: () => void;
+  signUp: () => void;
   fetchUser: () => void;
 }
 

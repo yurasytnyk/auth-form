@@ -3,6 +3,7 @@ import { useAppSelector } from '../../store/hooks/useAppSelector';
 import { login } from '../../store/features/login-form/routines';
 import { logout } from '../../store/features/user-page/routines';
 import { getUser } from '../../store/features/user-page/routines/user-page-routines';
+import { registration } from '../../store/features/registration-form/routines';
 
 export const useAuth = () => {
   const isAuth = useAppSelector((state) => state.auth.isAuth);
@@ -21,6 +22,10 @@ export const useAuth = () => {
     dispatch(logout());
   };
 
+  const signUp = () => {
+    dispatch(registration());
+  };
+
   const fetchUser = () => {
     dispatch(getUser());
   };
@@ -29,6 +34,7 @@ export const useAuth = () => {
     isAuth,
     signIn,
     signOut,
+    signUp,
     fetchUser,
   };
 };
