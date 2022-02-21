@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FormikHelpers, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { Container, Grid, Paper } from '@material-ui/core';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 
@@ -12,6 +12,7 @@ import { registrationSchema } from '../schemas/registration-form-schema';
 import { useRegistrationFormStyles } from '../styles/registration-form-styles';
 import { AuthContext } from '../../../context/auth-context';
 import { RegistrationValues } from '../../../pages/registration-page/type/registration-page-types';
+import { FirebaseClient } from '../../../firestore/client/firebase-client';
 
 export const RegistrationForm: FC<Props> = (props) => {
   const classes = useRegistrationFormStyles();
@@ -21,8 +22,8 @@ export const RegistrationForm: FC<Props> = (props) => {
 
   const handleFormSubmit = (
     values: RegistrationValues,
-    actions: FormikHelpers<RegistrationValues>
   ) => {
+    FirebaseClient.signUp(values.email, values.password);
     signUp();
     navigate('/login');
   };

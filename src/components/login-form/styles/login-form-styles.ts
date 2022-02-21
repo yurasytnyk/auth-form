@@ -1,9 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
 export const useLoginFormStyles = makeStyles({
-  formPaper: {
-    marginTop: '30px',
-  },
   formWrapper: {
     width: 280,
     padding: 20,
