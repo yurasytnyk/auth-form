@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { getUser } from '../routines/user-page-routines';
+import { getUser } from '../routines';
 import { State } from '../types/user-page-types';
 
 const initialState: State = {

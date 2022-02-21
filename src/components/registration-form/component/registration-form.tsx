@@ -1,5 +1,6 @@
 import { FC, useContext } from 'react';
-import { FormikHelpers, FormikValues, useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import { FormikHelpers, useFormik } from 'formik';
 import { Container, Grid, Paper } from '@material-ui/core';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 
@@ -10,23 +11,20 @@ import { Props } from '../types/registration-form-types';
 import { registrationSchema } from '../schemas/registration-form-schema';
 import { useRegistrationFormStyles } from '../styles/registration-form-styles';
 import { AuthContext } from '../../../context/auth-context';
+import { RegistrationValues } from '../../../pages/registration-page/type/registration-page-types';
 
 export const RegistrationForm: FC<Props> = (props) => {
   const classes = useRegistrationFormStyles();
-  const { data, footerData } = props;
+  const { initialValues, data, footerData } = props;
   const { signUp } = useContext(AuthContext);
-
-  const initialValues = {
-    email: '',
-    password: '',
-  };
+  const navigate = useNavigate();
 
   const handleFormSubmit = (
-    values: FormikValues, 
-    actions: FormikHelpers<typeof initialValues>
+    values: RegistrationValues,
+    actions: FormikHelpers<RegistrationValues>
   ) => {
     signUp();
-    actions.resetForm();
+    navigate('/login');
   };
 
   const formik = useFormik({
@@ -73,5 +71,5 @@ export const RegistrationForm: FC<Props> = (props) => {
         </Paper>
       </Grid>
     </Container>
-  )
+  );
 };

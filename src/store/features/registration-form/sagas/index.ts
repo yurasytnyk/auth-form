@@ -1,1 +1,1 @@
-export { registrationWatcher } from './registration-form';
+export { registrationWatcher } from './registration-form-saga';

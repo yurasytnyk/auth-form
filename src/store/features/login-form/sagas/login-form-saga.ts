@@ -15,7 +15,7 @@ function* loginWorker(action: PayloadAction<IRequestBody>) {
     const response: AxiosResponse<IToken> = yield call(AxiosClient.login('/login', 'POST', action.payload));
 
     if (response.status === 200) {
-      yield localStorage.setItem('token', TOKEN);
+      yield localStorage.setItem('token', JSON.stringify(TOKEN));
       yield put(success());
     } else {
       throw new Error(

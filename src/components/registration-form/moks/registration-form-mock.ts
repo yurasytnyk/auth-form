@@ -20,3 +20,8 @@ export const registrationFormFooterData = {
   linkText: 'Sign In',
   url: '/login',
 };
+
+export const initialValues = {
+  email: '',
+  password: '',
+};

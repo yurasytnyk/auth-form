@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import { TextField } from '@material-ui/core';
 
-import { FormikValues, Props } from '../types/form-field-types';
+import { Props } from '../types/form-field-types';
 import { useFormFieldStyles } from '../styles/form-field-styles';
+import { RegistrationValues } from '../../../pages/registration-page/type/registration-page-types';
 
 export const FormField: FC<Props> = (props) => {
   const classes = useFormFieldStyles();
@@ -14,7 +15,7 @@ export const FormField: FC<Props> = (props) => {
     formik,
   } = props;
 
-  const fieldId = id as keyof FormikValues;
+  const fieldId = id as keyof RegistrationValues;
 
   return (
     <TextField

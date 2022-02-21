@@ -1,5 +1,5 @@
 import { FC, useContext, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Avatar,
   Button,
@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import { useUserPageStyles } from './styles/user-page-styles';
+import { useUserPageStyles } from '../styles/user-page-styles';
 import { useAppSelector } from '../../../store/hooks/useAppSelector';
 import { getUser } from '../../../store/features/user-page/routines/user-page-routines';
 import { AuthContext } from '../../../context/auth-context';

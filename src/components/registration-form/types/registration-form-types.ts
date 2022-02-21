@@ -1,4 +1,7 @@
+import { RegistrationValues } from '../../../pages/registration-page/type/registration-page-types';
+
 export interface Props {
+  initialValues: RegistrationValues;
   data: IRegistrationData[];
   footerData: IRegistrationFormFooterData;
 }
