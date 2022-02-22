@@ -21,13 +21,13 @@ export const RegistrationForm: FC<Props> = (props) => {
   const classes = useRegistrationFormStyles();
   const { 
     initialValues, 
-    data, 
+    data,
     footerData 
   } = props;
   
   const { 
     signUp, 
-    isAuth, 
+    isAuth,
   } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -78,6 +78,7 @@ export const RegistrationForm: FC<Props> = (props) => {
 
         <FormFooter
           text={footerData.text}
+          buttonText='Sign Up'
           linkText={footerData.linkText}
           url={footerData.url}
         />

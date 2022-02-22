@@ -1,1 +1,4 @@
-export { login } from './login-form-routine';
+export { 
+  login,
+  loginWithGoogle,
+} from './login-form-routine';

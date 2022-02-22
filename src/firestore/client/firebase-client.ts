@@ -7,6 +7,8 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
   signOut,
 } from 'firebase/auth';
 
@@ -15,6 +17,7 @@ import { firebase } from '../config/config';
 export class FirebaseClient {
   static db = getFirestore(firebase);
   static auth = getAuth(firebase);
+  static provider = new GoogleAuthProvider();
 
   static createCollection<T>(collectionName: string) {
     return collection(FirebaseClient.db, collectionName) as CollectionReference<T>;
@@ -35,6 +38,18 @@ export class FirebaseClient {
       const user = await signInWithEmailAndPassword(FirebaseClient.auth, email, password);
       
       return user;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  static async signInWithGoogle() {
+    try {
+      const response = await signInWithPopup(FirebaseClient.auth, FirebaseClient.provider);
+      const credential = GoogleAuthProvider.credentialFromResult(response);
+      const token = credential?.accessToken;
+
+      return token;
     } catch (error) {
       console.error(error);
     }

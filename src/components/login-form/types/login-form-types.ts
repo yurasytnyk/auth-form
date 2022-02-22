@@ -18,4 +18,5 @@ export interface ILoginFormFooterData {
   text: string;
   linkText: string;
   url: string;
+  signInWithGoogle?: () => void;
 }

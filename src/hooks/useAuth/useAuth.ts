@@ -1,6 +1,9 @@
 import { useAppDispatch } from '../../store/hooks/useAppDispatch';
 import { useAppSelector } from '../../store/hooks/useAppSelector';
-import { login } from '../../store/features/login-form/routines';
+import  {
+  login,
+  loginWithGoogle,
+} from '../../store/features/login-form/routines';
 import { logout } from '../../store/features/user-page/routines';
 import { getUser } from '../../store/features/user-page/routines/user-page-routines';
 import { registration } from '../../store/features/registration-form/routines';
@@ -12,6 +15,12 @@ export const useAuth = () => {
   const signIn = (email: string, password: string) => {
     dispatch(
       login({ email, password, })
+    );
+  };
+
+  const signInWithGoogle = () => {
+    dispatch(
+      loginWithGoogle()
     );
   };
 
@@ -30,6 +39,7 @@ export const useAuth = () => {
   return {
     isAuth,
     signIn,
+    signInWithGoogle,
     signOut,
     signUp,
     fetchUser,

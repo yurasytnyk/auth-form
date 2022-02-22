@@ -2,13 +2,15 @@ import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 
-import { ILoginFormFooterData } from '../../login-form/types/login-form-types';
+import { Props } from '../types/form-footer-types';
 import { SubmitButton } from '../../submit-button/component';
+import { GoogleButton } from '../../google-button/component';
 
-export const FormFooter: FC<ILoginFormFooterData> = (props) => {
+export const FormFooter: FC<Props> = (props) => {
   const { 
-    text, 
-    linkText, 
+    text,
+    buttonText,
+    linkText,
     url,
   } = props;
 
@@ -18,8 +20,11 @@ export const FormFooter: FC<ILoginFormFooterData> = (props) => {
         variant="contained"
         color="primary"
         fullWidth={true}
-        text="Sign In"
+        text={buttonText}
       />
+
+      <GoogleButton />
+      
       <Typography>
         {text} <NavLink to={url}>{linkText}</NavLink>
       </Typography>

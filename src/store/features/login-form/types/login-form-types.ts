@@ -6,3 +6,5 @@ export interface ICredentials {
   email: string;
   password: string;
 }
+
+export type IGoogleToken = string | undefined;

@@ -29,7 +29,8 @@ export const LoginForm: FC<Props> = (props) => {
 
   const { 
     isAuth, 
-    signIn, 
+    signIn,
+    signInWithGoogle,
   } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -80,6 +81,7 @@ export const LoginForm: FC<Props> = (props) => {
 
         <FormFooter
           text={footerData.text}
+          buttonText="Sign In"
           linkText={footerData.linkText}
           url={footerData.url}
         />
