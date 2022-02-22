@@ -30,7 +30,6 @@ export const LoginForm: FC<Props> = (props) => {
   const { 
     isAuth, 
     signIn,
-    signInWithGoogle,
   } = useContext(AuthContext);
   const navigate = useNavigate();
 
