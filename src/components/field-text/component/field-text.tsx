@@ -4,7 +4,10 @@ import { Props } from '../types/field-text-types';
 import { RegistrationValues } from '../../../pages/registration-page/type/registration-page-types';
 
 export const FieldText: FC<Props> = (props) => {
-  const { id, formik } = props;
+  const { 
+    id,
+    formik, 
+  } = props;
 
   const fieldId = id as keyof RegistrationValues;
 

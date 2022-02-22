@@ -1,4 +1,8 @@
-import { FC, useContext, useEffect } from 'react';
+import { 
+  FC, 
+  useContext, 
+  useEffect, 
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Avatar,
@@ -19,14 +23,15 @@ import { useAppDispatch } from '../../../store/hooks/useAppDispatch';
 
 export const UserPage: FC = () => {
   const classes = useUserPageStyles();
+
   const user = useAppSelector((state) => state.user.data);
   const { signOut } = useContext(AuthContext);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleClick = () => {
     signOut();
-    localStorage.removeItem('token');
     navigate('/login');
   };
 

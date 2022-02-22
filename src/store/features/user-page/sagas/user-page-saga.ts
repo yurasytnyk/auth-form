@@ -1,15 +1,25 @@
 import { AxiosResponse } from 'axios';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { 
+  call, 
+  put, 
+  takeLatest,
+} from 'redux-saga/effects';
 
 import { logout } from '../../user-page/routines';
 import { getUser } from '../routines/user-page-routines';
 import AxiosClient from '../../../../axios-client/instance/instance';
+import { FirebaseClient } from '../../../../firestore/client/firebase-client';
 
 function* logoutWorker(): Generator {
-  const { success, failure, fulfill } = logout;
+  const { 
+    success, 
+    failure, 
+    fulfill,
+  } = logout;
 
   try {
-    yield call(AxiosClient.logout());
+    yield call(FirebaseClient.signOut);
+    yield localStorage.removeItem('token');
     yield put(success());
   } catch (error) {
     console.error(error);
@@ -20,7 +30,11 @@ function* logoutWorker(): Generator {
 }
 
 function* getUserWorker() {
-  const { success, failure, fulfill } = getUser;
+  const { 
+    success, 
+    failure, 
+    fulfill,
+  } = getUser;
 
   try {
     const response: AxiosResponse = yield call(AxiosClient.getUser('/users/1', 'GET'));

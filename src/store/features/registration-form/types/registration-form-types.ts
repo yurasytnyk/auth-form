@@ -1,4 +1,4 @@
-export interface IRegistrationRes {
-  id: number;
-  token: string;
+export interface IRegistrationCredentials {
+  email: string;
+  password: string;
 }

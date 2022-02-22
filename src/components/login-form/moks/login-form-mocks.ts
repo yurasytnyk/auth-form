@@ -1,5 +1,10 @@
 import { ILoginData } from '../types/login-form-types';
 
+export const initialValues = {
+  email: '',
+  password: '',
+};
+
 export const loginFormData: ILoginData[] = [
   {
     id: 'email',

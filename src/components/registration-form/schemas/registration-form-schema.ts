@@ -9,5 +9,5 @@ export const registrationSchema = yup.object().shape({
     .string()
     .required('Password is required field')
     .min(4, 'Password is too short')
-    .max(12, 'Password is too long'),
+    .max(15, 'Password is too long'),
 });

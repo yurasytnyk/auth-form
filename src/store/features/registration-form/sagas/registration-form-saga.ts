@@ -1,28 +1,31 @@
-import { AxiosResponse } from 'axios';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { 
+  call, 
+  put, 
+  takeLatest,
+} from 'redux-saga/effects';
 
 import { registration } from '../routines';
-import AxiosClient from '../../../../axios-client/instance/instance';
-import { TOKEN } from '../../../../config/config';
-import { IRegistrationRes } from '../types/registration-form-types';
+import { IRegistrationCredentials } from '../types/registration-form-types';
+import { FirebaseClient } from '../../../../firestore/client/firebase-client';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { UserCredential } from 'firebase/auth';
 
-function* registrationWorker() {
-  const { success, failure, fulfill } = registration;
+function* registrationWorker(action: PayloadAction<IRegistrationCredentials>) {
+  const { 
+    success, 
+    failure,
+    fulfill, 
+  } = registration;
 
   try {
-    const response: AxiosResponse<IRegistrationRes> = yield call(AxiosClient.registration('/register', 'POST', {
-      email: 'eve.holt@reqres.in',
-      password: 'pistol',
-    }));
+    const {
+      email,
+      password,
+    } = action.payload;
+    const response: UserCredential = yield call(FirebaseClient.signUp, email, password);
 
-    if (response.status === 200) {
-      yield localStorage.setItem('token', JSON.stringify(TOKEN));
-      yield put(success());
-    } else {
-      throw new Error(
-        `Response ended with status code: ${response.status}. Reason: ${response.statusText}`
-      );
-    }
+    yield localStorage.setItem('token', JSON.stringify(response.user.refreshToken));
+    yield put(success());
   } catch (error) {
     console.error(error);
     yield put(failure());

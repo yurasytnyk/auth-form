@@ -1,14 +1,17 @@
-import { FC } from "react";
-import { Avatar, Typography } from "@material-ui/core";
+import { FC } from 'react';
+import { 
+  Avatar, 
+  Typography, 
+} from '@material-ui/core';
 
-import { Props } from "../types/form-header-types";
+import { Props } from '../types/form-header-types';
 
 export const FormHeader: FC<Props> = (props) => {
   const { 
     className, 
     title, 
     subtitle, 
-    icon 
+    icon, 
   } = props;
 
   return (
@@ -17,11 +20,7 @@ export const FormHeader: FC<Props> = (props) => {
 
       <h2>{title}</h2>
 
-      {subtitle && (
-        <Typography variant="caption">
-          {subtitle}
-        </Typography>
-      )}
+      {subtitle && <Typography variant="caption">{subtitle}</Typography>}
     </>
   );
 };

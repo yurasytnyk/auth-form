@@ -9,7 +9,7 @@ export const FormFooter: FC<ILoginFormFooterData> = (props) => {
   const { 
     text, 
     linkText, 
-    url 
+    url,
   } = props;
 
   return (

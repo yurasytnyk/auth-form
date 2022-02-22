@@ -9,12 +9,9 @@ export const useAuth = () => {
   const isAuth = useAppSelector((state) => state.auth.isAuth);
   const dispatch = useAppDispatch();
   
-  const signIn = () => {
+  const signIn = (email: string, password: string) => {
     dispatch(
-      login({
-        email: 'eve.holt@reqres.in',
-        password: 'cityslicka',
-      })
+      login({ email, password, })
     );
   };
 
@@ -22,8 +19,8 @@ export const useAuth = () => {
     dispatch(logout());
   };
 
-  const signUp = () => {
-    dispatch(registration());
+  const signUp = (email: string, password: string) => {
+    dispatch(registration({ email, password, }));
   };
 
   const fetchUser = () => {

@@ -1,5 +1,9 @@
 export interface Props {
   data: ILoginData[];
+  initialValues: {
+    email: string;
+    password: string;
+  };
   footerData: ILoginFormFooterData;
 }
 

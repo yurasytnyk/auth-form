@@ -2,6 +2,7 @@ export interface State {
   isAuth: boolean;
 }
 
-export interface IToken {
-  token: string;
+export interface ICredentials {
+  email: string;
+  password: string;
 }

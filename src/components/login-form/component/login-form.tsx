@@ -1,32 +1,44 @@
-import { FC, useContext, useEffect } from 'react';
-import { FormikValues, useFormik } from 'formik';
+import { 
+  FC, 
+  useContext, 
+  useEffect,
+} from 'react';
+import { 
+  FormikValues, 
+  useFormik,
+} from 'formik';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
-import { loginSchema } from '../schemas/loginSchema';
+import { Props } from '../types/login-form-types';
+import { loginSchema } from '../schemas/login-schema';
 import { useLoginFormStyles } from '../styles/login-form-styles';
 import { FormHeader } from '../../form-header/component';
-import { Props } from '../types/login-form-types';
 import { FormField } from '../../form-field/component';
 import { FormFooter } from '../../form-footer/component';
 import { AuthContext } from '../../../context/auth-context';
 import { useNavigate } from 'react-router-dom';
-import { FirebaseClient } from '../../../firestore/client/firebase-client';
 import { FormLayout } from '../../form-layout/component/form-layout';
 
 export const LoginForm: FC<Props> = (props) => {
   const classes = useLoginFormStyles();
-  const { data, footerData } = props;
-  const { isAuth, signIn } = useContext(AuthContext);
+  const { 
+    data,
+    initialValues,
+    footerData, 
+  } = props;
+
+  const { 
+    isAuth, 
+    signIn, 
+  } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleFormSubmit = (values: FormikValues) => {
-    FirebaseClient.signIn(values.email, values.password);
-    signIn();
-  };
-
-  const initialValues = {
-    email: '',
-    password: '',
+    const { 
+      email, 
+      password, 
+    } = values;
+    signIn(email, password);
   };
 
   const formik = useFormik({
@@ -37,7 +49,7 @@ export const LoginForm: FC<Props> = (props) => {
 
   useEffect(() => {
     if (isAuth) {
-      navigate('/');
+      navigate('/protected');
     }
   }, [isAuth]);
 

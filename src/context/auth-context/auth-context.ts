@@ -2,9 +2,9 @@ import { createContext } from "react";
 
 interface AuthContextType {
   isAuth: boolean;
-  signIn: () => void;
+  signIn: (email: string, password: string) => void;
   signOut: () => void;
-  signUp: () => void;
+  signUp: (email: string, password: string) => void;
   fetchUser: () => void;
 }
 
