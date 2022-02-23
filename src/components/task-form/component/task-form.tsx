@@ -3,21 +3,21 @@ import {
   addDoc,
   serverTimestamp,
 } from 'firebase/firestore';
-import { 
+import {
   FormikHelpers,
   FormikValues, 
   useFormik,
 } from 'formik';
-import { 
-  Button, 
-  TextField,
-} from '@material-ui/core';
+import {  TextField } from '@material-ui/core';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import { tasksCollection } from '../../../firestore/collections/tasks-collection';
 import { TaskValue } from '../types/task-form-types';
+import { useTaskFormStyles } from '../styles/task-form-styles';
 
 export const TaskForm: FC = () => {
+  const classes = useTaskFormStyles();
+
   const onSubmitHandler = async (
     values: FormikValues, 
     actions: FormikHelpers<TaskValue>
@@ -41,6 +41,7 @@ export const TaskForm: FC = () => {
   return (
     <form 
       onSubmit={formik.handleSubmit}
+      className={classes.taskForm}
       autoComplete="off"
     >
       <TextField 
@@ -50,12 +51,13 @@ export const TaskForm: FC = () => {
         fullWidth
       />
 
-      <Button
+      <button
         type="submit"
+        className={classes.formAddBtn}
         disabled={!formik.values.task}
       >
         <AddCircleOutlineIcon />
-      </Button>
+      </button>
     </form>
   );
 };

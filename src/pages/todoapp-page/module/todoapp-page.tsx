@@ -25,20 +25,23 @@ export const TodoAppPage: FC = () => {
   const classes = useTodoAppPageStyles();
 
   const [data, setData] = useState<ITasks[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const tasksQuery = query(tasksCollection, orderBy('createdAt'));
+    setLoading(true);
 
-    const subscribe = onSnapshot(tasksQuery, (snapshot) => {
+    const unsubscribe = onSnapshot(tasksQuery, (snapshot) => {
       const tasksData = snapshot.docs.map((doc) => ({
         ...doc.data(), 
         id: doc.id,
       }));
 
       setData(tasksData);
+      setLoading(false);
     });
 
-    return () => subscribe();
+    return () => unsubscribe();
   }, []);
 
   return (
@@ -48,7 +51,10 @@ export const TodoAppPage: FC = () => {
           <Paper elevation={5} className={classes.paperWrapper}>
             <TaskForm />
 
-            <TasksList tasksListData={data} />
+            <TasksList
+              tasksListData={data} 
+              loading={loading}
+            />
           </Paper>
         </Grid>
       </Grid>

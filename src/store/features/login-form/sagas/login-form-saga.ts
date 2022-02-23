@@ -5,7 +5,10 @@ import {
 } from 'redux-saga/effects';
 
 import { PayloadAction } from '@reduxjs/toolkit';
-import { login, loginWithGoogle } from '../routines';
+import { 
+  login, 
+  loginWithGoogle, 
+} from '../routines';
 import { FirebaseClient } from '../../../../firestore/client/firebase-client';
 import { UserCredential } from 'firebase/auth';
 import { ICredentials, IGoogleToken } from '../types/login-form-types';
@@ -24,8 +27,9 @@ function* loginWorker(action: PayloadAction<ICredentials>) {
     } = action.payload;
 
     const response: UserCredential = yield call(FirebaseClient.signIn, email, password);
+    const token: Promise<string> = yield response.user.getIdToken();
 
-    yield localStorage.setItem('token', JSON.stringify(response.user.refreshToken));
+    yield localStorage.setItem('token', JSON.stringify(token));
     yield put(success());
   } catch (error) {
     yield put(failure());

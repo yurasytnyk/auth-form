@@ -5,9 +5,16 @@ import { useTasksListStyles } from '../styles/tasks-list-styles';
 import { TasksListItem } from '../../tasks-list-item/component';
 
 export const TasksList: FC<Props> = (props) => {
-  const { tasksListData } = props;
+  const { 
+    tasksListData,
+    loading,
+  } = props;
   const classes = useTasksListStyles();
   
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <ul className={classes.tasksList}>
       {tasksListData.map((item) => (
